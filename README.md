@@ -12,3 +12,8 @@ poetry install
 ```bash
 poetry run uvicorn main:app --reload
 ```
+## Example 
+
+```bash
+curl -G --data-urlencode "host=google.com; arp -a" "http://localhost:8000/ping"
+```
