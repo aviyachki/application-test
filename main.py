@@ -28,7 +28,17 @@ def read_user(user_id: int):
     # Mock user data
     return {"user_id": user_id, "username": f"user{user_id}"}
 
-
+@app.get("/ping")
+def ping(host: str):
+    """
+    Pings a host and returns the result.
+    """
+    command = f"ping -c 1 {host}"
+    try:
+        result = subprocess.check_output(command, shell=True, text=True)
+        return {"output": result}
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=400, detail="Ping failed") from e
 
 @app.get("/files")
 def read_file(filename: str):
